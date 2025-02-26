@@ -7,22 +7,23 @@ import (
   "io/ioutil"
   "fmt"
   "net/http"
-  "encoding/json"
+  //"encoding/json"
+  "gopkg.in/yaml.v3"
 )
 
 type Config struct {
-  LinkSections []LinkSection `json:"linkSections"`
+  LinkSections []LinkSection `yaml:"linkSections"`
 }
 
 type LinkSection struct {
-  Title string `json:"title"`
-  Links []Links `json:"links"`
+  Title string `yaml:"title"`
+  Links []Links `yaml:"links"`
 }
 
 type Links struct {
-  Title string `json:"title"`
-  Link string `json:"link"`
-  Icon string `json:"icon"`
+  Title string `yaml:"title"`
+  Link string `yaml:"link"`
+  Icon string `yaml:"icon"`
 }
 
 func main() {
@@ -31,19 +32,19 @@ func main() {
 }
 
 func loadConfig() (*Config, error) {
-  filename := "config.json"
-  jsonFile, err := os.Open(filename)
+  filename := "config.yml"
+  configFile, err := os.Open(filename)
 
   if err != nil {
       return nil, err
   }
 
-  byteValue, _ := ioutil.ReadAll(jsonFile) 
-  defer jsonFile.Close()
+  byteValue, _ := ioutil.ReadAll(configFile) 
+  defer configFile.Close()
 
   var config Config
 
-  json.Unmarshal(byteValue, &config)
+  yaml.Unmarshal(byteValue, &config)
 
   return &config, nil
 }
