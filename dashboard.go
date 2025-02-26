@@ -33,18 +33,33 @@ func main() {
 
 func loadConfig() (*Config, error) {
   filename := "config.yml"
-  configFile, err := os.Open(filename)
+  configFile, errOpen := os.Open(filename)
 
-  if err != nil {
-      return nil, err
+  if errOpen != nil {
+    fmt.Println("Error opening config file: %v", errOpen)
+
+    return nil, errOpen
   }
 
-  byteValue, _ := ioutil.ReadAll(configFile) 
+  byteValue, errRead := ioutil.ReadAll(configFile) 
+  
+  if errRead != nil {
+    fmt.Println("Error reading config file: %v", errRead)
+
+    return nil, errRead
+  }
+  
   defer configFile.Close()
 
   var config Config
 
-  yaml.Unmarshal(byteValue, &config)
+  errParse := yaml.Unmarshal(byteValue, &config)
+
+  if errParse != nil {
+    fmt.Println("Error parsing config file: %v", errParse)
+
+    return nil, errParse
+  }
 
   return &config, nil
 }
