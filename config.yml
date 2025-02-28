@@ -1,9 +1,16 @@
+layout:
+  sections: 4
+  width: 2
+
+style:
+  accentColor: "#4da6ff" 
+
 linkSections:
   - title: "main"
     links:
       - title: "portfolio"
         link: "https://tbrouwer.com"
-        icon: ""
+        icon: "fas-globe"
       - title: "google"
         link: "https://google.com"
         icon: ""
