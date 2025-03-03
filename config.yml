@@ -1,19 +1,44 @@
+title: "Dashboard"
+
 layout:
   sections: 4
   width: 2
+  sectionPadding: 20
+  cardPadding: 10
 
 style:
-  accentColor: "#4da6ff" 
+  background: "#181926"
+  sectionBackground: "#24273a"
+  cardBackground: "#181926"
+  cardHover: "#c6a0f6"
+  text: "#cad3f5"
+  textHover: "#24273a"
+  configaccent: "#c6a0f6"
 
 linkSections:
   - title: "main"
     links:
-      - title: "portfolio"
-        link: "https://tbrouwer.com"
-        icon: "fas-globe"
-      - title: "google"
-        link: "https://google.com"
-        icon: ""
+      - title: "Proxmox"
+        link: "https://pve.tbrouwer.com"
+        icon: "hl-proxmox"
+      - title: "Passbolt"
+        link: "https://passbolt.tbrouwer.com"
+        icon: "hl-passbolt"
+      - title: "Grafana"
+        link: "https://grafana.tbrouwer.com"
+        icon: "hl-grafana"
+      - title: "Pi-hole"
+        link: "https://pihole.tbrouwer.com"
+        icon: "hl-pi-hole"
+      - title: "Pi-hole 2"
+        link: "https://pihole-2.tbrouwer.com"
+        icon: "hl-pi-hole"
+      - title: "Wireguard"
+        link: "https://wireguard.tbrouwer.com"
+        icon: "hl-wireguard"
+      - title: "Portainer"
+        link: "https://portainer.tbrouwer.com"
+        icon: "hl-portainer"
   - title: "secondary"
     links:
       - title: "portfolio 2"

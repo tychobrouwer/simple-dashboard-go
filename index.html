@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>{{ .Title }} </title>
   <style>
     body {
-      background-color: #121212;
-      color: #ffffff;
+      background-color: {{ .Style.Background }};
+      color: {{ .Style.Text }};
       font-family: Arial, sans-serif;
       margin: 40px;
       text-align: center;
@@ -19,8 +19,8 @@
       justify-content: center;
     }
     .section {
-      background-color: #1e1e1e;
-      padding: 15px;
+      background-color: {{ .Style.SectionBackground }};
+      padding: {{ .Layout.SectionPadding }}px;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       text-align: center;
@@ -33,15 +33,14 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      justify-content: center;
     }
     .link {
-      width: calc(100% / {{ .Layout.Width }} - 30px);
-      background-color: #2a2a2a;
-      padding: 10px;
+      width: calc(100% / {{ .Layout.Width }} - {{ .Layout.SectionPadding }}px - {{ .Layout.CardPadding }}px / 2);
+      background-color: {{ .Style.CardBackground }};
+      padding: {{ .Layout.CardPadding }}px;
       border-radius: 6px;
       transition: background 0.3s;
-      color: #ffffff;
+      color: {{ .Style.Text }};
       text-decoration: none;
       display: flex;
       flex-direction: column;
@@ -50,15 +49,14 @@
       height: 60px;
     }
     .link:hover {
-      background-color: #3a3a3a;
-      color: {{ .Style.AccentColor }};
+      background-color: {{ .Style.CardHover }};
+      color: {{ .Style.TextHover }};
     }
-    .icon {
+    .link svg {
       display: block;
       margin: 5px auto 0;
       width: 30px;
       height: 30px;
-      fill: #ffffff;
     }
   </style>
 </head>
@@ -71,8 +69,10 @@
           {{ range .Links }}
             <a href="{{ .Link }}" class="link">
               <span>{{ .Title }}</span>
-              {{ if .Icon }} 
-                <img src="{{ getIcon .Icon }}" alt="{{ .Title }} icon" class="icon">
+              {{ if .Icon }}
+                <img>
+                  {{ loadIcon .Icon }}
+                </img>
               {{ end }}
             </a>
           {{ end }}
