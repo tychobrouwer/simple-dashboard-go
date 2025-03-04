@@ -14,7 +14,9 @@ import (
 
 type Icon struct {
   name string
+  url string
   html string
+  src string
 }
 
 type Config struct {
@@ -74,29 +76,38 @@ func main() {
   }
 }
 
-func getIconUrl(icon string) string {
+func getIconUrl(icon string) Icon {
   if icon == "" {
-    return "";
+    return "empty", ""
   }
   
   iconParts := strings.SplitN(icon, "-", 2)
   if len(iconParts) < 2 {
-    return icon
+    return "url", icon
   }
+
+  returnIcon = Icon{}
+  returnicon.html = ""
 
   switch iconParts[0] {
   case "hl":
-    return "https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/svg/" + iconParts[1] +".svg"
+    returnIcon.name = iconParts[1]
+    returnIcon.url = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/svg/" + iconParts[1] +".svg"
+    returnIcon.type = iconParts[0]
   
   case "fa":
-    return "https://site-assets.fontawesome.com/releases/v5.15.4/svgs/regular" + iconParts[1] + ".svg"
+
+
+    return "fa", "https://site-assets.fontawesome.com/releases/v5.15.4/svgs/regular" + iconParts[1] + ".svg"
 
   case "fas":
-    return "https://site-assets.fontawesome.com/releases/v5.15.4/svgs/solid/" + iconParts[1] + ".svg"
+    return "fas", "https://site-assets.fontawesome.com/releases/v5.15.4/svgs/solid/" + iconParts[1] + ".svg"
 
   default:
-    return icon
+    return "url", icon
   }
+
+  return icon;
 }
 
 func prefixSVGClasses(svg string, prefix string) string {
@@ -108,25 +119,25 @@ func prefixSVGClasses(svg string, prefix string) string {
   return replacer.Replace(svg)
 }
 
-func loadIcon(icon string) (template.HTML, error) {
+func loadIcon(icon string) (string, template.HTML, error) {
   cacheMutex.Lock();
   for _, cachedIcon := range iconCache {
     if cachedIcon.name == icon {
       cacheMutex.Unlock()
 
-      return template.HTML(cachedIcon.html), nil
+      return "", template.HTML(cachedIcon.html), nil
     }
   }
   cacheMutex.Unlock()
  
-  iconUrl := getIconUrl(icon)
+  iconType, iconUrl := getIconUrl(icon)
   log.Printf("loading icon from: %v", iconUrl)
   
   res, err := http.Get(iconUrl)
 
   if err != nil {
     log.Printf("error making http request: %s\n", err)
-    return "", fmt.Errorf("error making http request: %s\n", err)
+    return "", "", fmt.Errorf("error making http request: %s\n", err)
   }
   
   if res.StatusCode != 200 {
@@ -151,7 +162,7 @@ func loadIcon(icon string) (template.HTML, error) {
 
   log.Printf("loaded icon from http request: %v\n", icon)
 
-  return template.HTML(svgWithScopedStyles), nil
+  return iconType, template.HTML(svgWithScopedStyles), nil
 }
 
 func loadConfig() (Config, error) {
