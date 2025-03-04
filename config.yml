@@ -71,7 +71,7 @@ linkSections:
         icon: "hl-proxmox"
       - title: "Router"
         link: "http://10.12.12.1/"
-        icon: "hl-router"
+        icon: "hl-asus-router"
 
   - title: "secondary"
     links:

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Title }} </title>
+  <title>{{ .Title }}</title>
   <style>
     body {
       background-color: {{ .Style.Background }};
@@ -46,7 +46,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 50px;
+      height: 40px;
+      font-size: 14px;
     }
     .link:hover {
       background-color: {{ .Style.CardHover }};
@@ -55,8 +56,16 @@
     .link svg {
       display: block;
       margin: 5px auto 0;
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
+    }
+    .link .fas,
+    .link .fa {
+      fill: {{ .Style.Text }};
+    }
+    .link:hover .fas,
+    .link:hover .fa {
+      fill: {{ .Style.TextHover }};
     }
   </style>
 </head>
@@ -70,9 +79,9 @@
             <a href="{{ .Link }}" class="link">
               <span>{{ .Title }}</span>
               {{ if .Icon }}
-                <img>
-                  {{ loadIcon .Icon }}
-                </img>
+                <div class="{{ getIconSrc .Icon }}">
+                  {{ getIconHtml .Icon }}
+                </div>
               {{ end }}
             </a>
           {{ end }}
