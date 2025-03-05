@@ -48,6 +48,7 @@
       justify-content: center;
       height: 40px;
       font-size: 14px;
+      transition: 0.3s ease-in-out;
     }
     .link:hover {
       background-color: {{ .Style.CardHover }};
@@ -62,6 +63,7 @@
     .link .fas,
     .link .fa {
       fill: {{ .Style.Text }};
+      transition: fill 0.3s ease-in-out;
     }
     .link:hover .fas,
     .link:hover .fa {
