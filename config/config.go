@@ -35,14 +35,16 @@ type Style struct {
 }
 
 type LinkSection struct {
-	Title string  `yaml:"title"`
-	Links []Links `yaml:"links"`
+	Title string `yaml:"title"`
+	Links []Link `yaml:"links"`
 }
 
-type Links struct {
-	Title string `yaml:"title"`
-	Link  string `yaml:"link"`
-	Icon  string `yaml:"icon"`
+type Link struct {
+	Title     string `yaml:"title"`
+	Link      string `yaml:"link"`
+	Icon      string `yaml:"icon"`
+	Status    bool   `yaml:"status"`
+	StatusUrl string `yaml:"statusUrl"`
 }
 
 var config Config
