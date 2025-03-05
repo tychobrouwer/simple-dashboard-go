@@ -1,4 +1,4 @@
-title: "Dashboard"
+title: Dashboard
 
 layout:
   sections: 4
@@ -14,120 +14,151 @@ style:
   text: "#cad3f5"
   textHover: "#24273a"
   configaccent: "#c6a0f6"
+  statusOnline: "#a6da95"
+  statusOffline: "#121212"
 
 linkSections:
-  - title: "main"
+  - title: main
     links:
-      - title: "Proxmox"
-        link: "https://pve.tbrouwer.com"
-        icon: "hl-proxmox"
+      - title: Proxmox
+        url: https://pve.tbrouwer.com
+        icon: hl-proxmox
         status: true
 
-      - title: "Passbolt"
-        link: "https://passbolt.tbrouwer.com"
-        icon: "hl-passbolt"
+      - title: Passbolt
+        url: https://passbolt.tbrouwer.com
+        icon: hl-passbolt
         status: true
 
-      - title: "Grafana"
-        link: "https://grafana.tbrouwer.com"
-        icon: "hl-grafana"
+      - title: Grafana
+        url: https://grafana.tbrouwer.com
+        icon: hl-grafana
         status: true
 
-      - title: "Pi-hole"
-        link: "https://pihole.tbrouwer.com"
-        icon: "hl-pi-hole"
+      - title: Pi-hole
+        url: https://pihole.tbrouwer.com
+        icon: hl-pi-hole
         status: true
 
-      - title: "Pi-hole 2"
-        link: "https://pihole-2.tbrouwer.com"
-        icon: "hl-pi-hole"
+      - title: Pi-hole 2
+        url: https://pihole-2.tbrouwer.com
+        icon: hl-pi-hole
+        status: true
 
-      - title: "Wireguard"
-        link: "https://wireguard.tbrouwer.com"
-        icon: "hl-wireguard"
+      - title: Wireguard
+        url: https://wireguard.tbrouwer.com
+        icon: hl-wireguard
+        status: true
 
-      - title: "Portainer"
-        link: "https://portainer.tbrouwer.com"
-        icon: "hl-portainer"
+      - title: Portainer
+        url: https://portainer.tbrouwer.com
+        icon: hl-portainer
+        status: true
 
-      - title: "Sonarr"
-        link: "https://sonarr.tbrouwer.com"
-        icon: "hl-sonarr"
+      - title: Sonarr
+        url: https://sonarr.tbrouwer.com
+        icon: hl-sonarr
+        status: true
 
-      - title: "Radarr"
-        link: "https://radarr.tbrouwer.com"
-        icon: "hl-radarr"
+      - title: Radarr
+        url: https://radarr.tbrouwer.com
+        icon: hl-radarr
+        status: true
 
-      - title: "Bazarr"
-        link: "https://bazarr.tbrouwer.com"
-        icon: "hl-bazarr"
+      - title: Bazarr
+        url: https://bazarr.tbrouwer.com
+        icon: hl-bazarr
+        status: true
 
-      - title: "Readarr"
-        link: "https://readarr.tbrouwer.com"
-        icon: "hl-readarr"
+      - title: Readarr
+        url: https://readarr.tbrouwer.com
+        icon: hl-readarr
+        status: true
 
-      - title: "Prowlarr"
-        link: "https://prowlarr.tbrouwer.com"
-        icon: "hl-prowlarr"
+      - title: Prowlarr
+        url: https://prowlarr.tbrouwer.com
+        icon: hl-prowlarr
+        status: true
 
-      - title: "FlareSolverr"
-        link: "https://flaresolverr.tbrouwer.com"
-        icon: "hl-flaresolverr"
+      - title: FlareSolverr
+        url: http://10.12.12.106:8191
+        icon: hl-flaresolverr
+        status: true
 
-      - title: "qBittorrent"
-        link: "https://qbittorrent.tbrouwer.com"
-        icon: "hl-qbittorrent"
+      - title: qBittorrent
+        url: https://torrent.tbrouwer.com
+        icon: hl-qbittorrent
+        status: true
 
-      - title: "Traefik"
-        link: "http://portainer.home:8080"
-        icon: "hl-traefik"
+      - title: Traefik
+        url: http://10.12.12.115:8080
+        icon: hl-traefik
+        status: true
 
-      - title: "InfluxDB"
-        link: "https://influxDB.tbrouwer.com"
-        icon: "hl-influxdb"
+      - title: Proxmox Backup
+        url: https://pve-backup.tbrouwer.com
+        icon: hl-proxmox
+        status: true
 
-      - title: "Proxmox Backup"
-        link: "https://pve-backup.tbrouwer.com"
-        icon: "hl-proxmox"
+      - title: Router
+        url: http://10.12.12.1/
+        icon: hl-asus-router
+        status: true
 
-      - title: "Router"
-        link: "http://10.12.12.1/"
-        icon: "hl-asus-router"
-
-  - title: "secondary"
+  - title: secondary
     links:
-      - title: "Google Calendar"
-        link: "https://calendar.google.com"
-        icon: "hl-google-calendar"
+      - title: Google Calendar
+        url: https://calendar.google.com
+        icon: hl-google-calendar
 
-      - title: "Portfolio"
-        link: "https://www.tbrouwer.com"
-        icon: "fas-globe"
+      - title: Portfolio
+        url: https://www.tbrouwer.com
+        icon: fas-globe
+        status: true
 
-      - title: "Youtube"
-        link: "https://www.youtube.com"
-        icon: "hl-youtube"
+      - title: Youtube
+        url: https://www.youtube.com
+        icon: hl-youtube
 
-      - title: "Netflix"
-        link: "https://www.netflix.com"
-        icon: "hl-netflix"
+      - title: Netflix
+        url: https://www.netflix.com
+        icon: hl-netflix
 
-      - title: "Jellyfin"
-        link: "https://jellyfin.tbrouwer.com"
-        icon: "hl-jellyfin"
+      - title: Jellyfin
+        url: https://jellyfin.tbrouwer.com
+        icon: hl-jellyfin
+        status: true
 
-      - title: "Spotify"
-        link: "https://open.spotify.com"
-        icon: "hl-spotify"
+      - title: Spotify
+        url: https://open.spotify.com
+        icon: hl-spotify
 
-      - title: "Home Assistant"
-        link: "https://ha.tbrouwer.com"
-        icon: "hl-home-assistant"
+      - title: Home Assistant
+        url: https://ha.tbrouwer.com
+        icon: hl-home-assistant
+        status: true
 
-      - title: "Tandoor"
-        link: "https://tandoor.tbrouwer.com"
-        icon: "hl-tandoor-recipes"
+      - title: Tandoor
+        url: https://tandoor.tbrouwer.com
+        icon: hl-tandoor-recipes
+        status: true
 
-      - title: "iCloud"
-        link: "https://www.icloud.com"
-        icon: ""
+      - title: iCloud
+        url: https://www.icloud.com
+        icon: favicon
+
+      - title: Reddit
+        url: https://www.reddit.com/
+        icon: hl-reddit
+
+      - title: Linkedin
+        url: https://www.linkedin.com/in/tycho-brouwer-6306ba274
+        icon: hl-linkedin
+
+      - title: IMDB
+        url: https://www.imdb.com/
+        icon: favicon
+
+      - title: PayPal
+        url: https://www.paypal.com/myaccount/summary
+        icon: hl-paypal

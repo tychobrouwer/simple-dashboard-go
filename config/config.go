@@ -32,6 +32,8 @@ type Style struct {
 	Text              string `yaml:"text"`
 	TextHover         string `yaml:"textHover"`
 	Accent            string `yaml:"accent"`
+  StatusOnline      string `yaml:"statusOnline"`
+  StatusOffline     string `yaml:"statusOffline"`
 }
 
 type LinkSection struct {
@@ -41,7 +43,7 @@ type LinkSection struct {
 
 type Link struct {
 	Title     string `yaml:"title"`
-	Link      string `yaml:"link"`
+	Url       string `yaml:"url"`
 	Icon      string `yaml:"icon"`
 	Status    bool   `yaml:"status"`
 	StatusUrl string `yaml:"statusUrl"`
@@ -80,7 +82,7 @@ func LoadConfig() error {
 				go func(icon string) {
 					defer wg.Done()
 
-					_, _, _ = icons.LoadIcon(link.Icon)
+					_, _, _ = icons.LoadIcon(link.Icon, link.Url)
 				}(link.Icon)
 			}
 		}

@@ -39,35 +39,51 @@
       background-color: {{ .Style.CardBackground }};
       padding: {{ .Layout.CardPadding }}px;
       border-radius: 6px;
-      transition: background 0.3s;
       color: {{ .Style.Text }};
       text-decoration: none;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 40px;
+      height: 50px;
       font-size: 14px;
       transition: 0.3s ease-in-out;
+      position: relative;
     }
     .link:hover {
       background-color: {{ .Style.CardHover }};
       color: {{ .Style.TextHover }};
     }
-    .link svg {
+    .link svg,
+    .link img {
       display: block;
       margin: 5px auto 0;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
     }
     .link .fas,
     .link .fa {
       fill: {{ .Style.Text }};
       transition: fill 0.3s ease-in-out;
     }
+    .link .favicon img {
+      border-radius: 5px;
+    }
     .link:hover .fas,
     .link:hover .fa {
       fill: {{ .Style.TextHover }};
+    }
+    .link .status {
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: {{ .Style.StatusOffline }};
+    }
+    .link.online .status {
+      background: {{ .Style.StatusOnline }};
     }
   </style>
 </head>
@@ -78,12 +94,15 @@
         <h2>{{ .Title }}</h2>
         <div class="section-content">
           {{ range .Links }}
-            <a href="{{ .Link }}" class="link">
+            <a href="{{ .Url }}" class="link" id="{{ .Title }}">
               <span>{{ .Title }}</span>
               {{ if .Icon }}
-                <div class="{{ getIconSrc .Icon }}">
-                  {{ getIconHtml .Icon }}
+                <div class="{{ getIconSrc .Icon .Url }}">
+                  {{ getIconHtml .Icon .Url }}
                 </div>
+              {{ end }}
+              {{ if .Status }}
+                <div class="status"></div>
               {{ end }}
             </a>
           {{ end }}
@@ -91,5 +110,28 @@
       </div>
     {{ end }}
   </div>
+  <script>
+    const path = "status";
+    (function checkStatus() {
+      fetch(path)
+        .then((response) => response.json())
+        .then((data) => {
+          for (const linkTitle in data.result) {
+            const link = document.getElementById(linkTitle);
+            
+            if (link) {
+              if (data.result[linkTitle]) {
+                link.classList.add("online")
+              } else {
+                link.classList.remove("online")
+              }
+            }
+          }
+        })
+        .catch((error) => console.error("Error fetching status: ", error));
+      
+      setTimeout(checkStatus, 5000)
+    })();
+  </script>
 </body>
 </html>

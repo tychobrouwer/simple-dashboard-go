@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"slices"
+  "compress/gzip"
+  "strings"
 	"sync"
 	"text/template"
 )
@@ -19,8 +21,38 @@ var acceptedStatusCodes = []int{
 	http.StatusForbidden,
 }
 
+func RobotsTxtHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain")
+	w.WriteHeader(http.StatusOK)
+
+	robotsTxt := "User-agent: *\nDisallow: /"
+
+	_, err := w.Write([]byte(robotsTxt))
+
+  if err != nil {
+		log.Printf("Error writing robots.txt: %v", err)
+	}
+}
+
+type GzipResponseWriter struct {
+	http.ResponseWriter
+	Writer *gzip.Writer
+}
+
+func (gzw *GzipResponseWriter) Write(b []byte) (int, error) {
+	return gzw.Writer.Write(b)
+}
+
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.New("index.html").Funcs(template.FuncMap{
+	if strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+		w.Header().Set("Content-Encoding", "gzip")
+		gz := gzip.NewWriter(w)
+		defer gz.Close()
+
+		w = &GzipResponseWriter{ResponseWriter: w, Writer: gz}
+	}
+	
+  tmpl := template.New("index.html").Funcs(template.FuncMap{
 		"getIconSrc":  icons.GetIconSrc,
 		"getIconHtml": icons.GetIconHtml,
 	})
@@ -49,7 +81,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
 	cfg := config.GetConfig()
 
-	result := make(map[string]bool)
+result := make(map[string]bool)
 
 	var wg sync.WaitGroup
 
@@ -91,8 +123,7 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
 func getStatus(link config.Link) bool {
 	url := link.StatusUrl
 	if link.StatusUrl == "" {
-		url = link.Link
-	}
+		url = link.Url	}
 
 	resp, err := http.Get(url)
 

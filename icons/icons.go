@@ -21,10 +21,14 @@ type Icon struct {
 var iconCache []Icon
 var cacheMutex sync.Mutex
 
-func getIconUrl(icon string) (string, string) {
+func getIconUrl(icon string, link string) (string, string) {
 	if icon == "" {
 		return "empty", ""
 	}
+
+  if icon == "favicon" {
+    return "favicon", link + "/favicon.ico"
+  }
 
 	iconParts := strings.SplitN(icon, "-", 2)
 	if len(iconParts) < 2 {
@@ -46,36 +50,64 @@ func getIconUrl(icon string) (string, string) {
 	}
 }
 
-func GetIconSrc(icon string) (string, error) {
-	iconSrc, _, err := getCachedIcon(icon)
-	if err == nil {
+func GetIconSrc(icon string, url string) (string, error) {
+  var iconSrc string
+  var err error
+
+  if icon == "favicon" {
+    iconSrc, _, err = getCachedIcon(url)
+  } else {
+    iconSrc, _, err = getCachedIcon(icon)
+  }
+
+  if err == nil {
 		return iconSrc, nil
 	}
 
-	iconSrc, _, err = LoadIcon(icon)
+	iconSrc, _, err = LoadIcon(icon, url)
 
 	return iconSrc, err
 }
 
-func GetIconHtml(icon string) (template.HTML, error) {
-	_, iconHtml, err := getCachedIcon(icon)
-	if err == nil {
+func GetIconHtml(icon string, url string) (template.HTML, error) {
+  var iconHtml template.HTML
+  var err error
+
+  if icon == "favicon" {
+    _, iconHtml, err = getCachedIcon(url)
+  } else {
+    _, iconHtml, err = getCachedIcon(icon)
+  }
+  
+  if err == nil {
 		return iconHtml, nil
 	}
 
-	_, iconHtml, err = LoadIcon(icon)
+	_, iconHtml, err = LoadIcon(icon, url)
 
 	return iconHtml, err
 }
 
-func LoadIcon(icon string) (string, template.HTML, error) {
+func LoadIcon(icon string, url string) (string, template.HTML, error) {
 	iconSrc, iconHtml, err := getCachedIcon(icon)
 	if err == nil {
 		return iconSrc, iconHtml, nil
 	}
 
-	iconSrc, iconUrl := getIconUrl(icon)
+	iconSrc, iconUrl := getIconUrl(icon, url)
 	log.Printf("loading icon from: %v", iconUrl)
+
+  if iconSrc == "favicon" {
+    log.Println("loading favicon icon")
+
+    faviconHtml := "<img alt=\"" + icon + "\" src=\"" + iconUrl + "\">"
+
+	  cacheMutex.Lock()
+	  iconCache = append(iconCache, Icon{Name: url, Html: faviconHtml, Src: iconSrc})
+	  cacheMutex.Unlock()
+    
+    return "favicon", template.HTML(faviconHtml), nil
+  }
 
 	res, err := http.Get(iconUrl)
 
