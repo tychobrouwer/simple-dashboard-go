@@ -67,6 +67,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+  w.Header().Set("Content-Type", "text/html")
 	err = tmpl.Execute(w, config.GetConfig())
 
 	if err != nil {
