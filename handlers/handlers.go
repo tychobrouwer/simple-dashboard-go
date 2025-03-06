@@ -1,6 +1,7 @@
 package handlers
 
 import (
+  "assets"
 	"config"
 	"encoding/json"
 	"icons"
@@ -9,7 +10,7 @@ import (
 	"slices"
   "compress/gzip"
   "strings"
-	"sync"
+  "sync"
 	"text/template"
 )
 
@@ -51,22 +52,22 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 		w = &GzipResponseWriter{ResponseWriter: w, Writer: gz}
 	}
-	
+
   tmpl := template.New("index.html").Funcs(template.FuncMap{
 		"getIconSrc":  icons.GetIconSrc,
 		"getIconHtml": icons.GetIconHtml,
 	})
 
-	t, err := tmpl.ParseFiles("index.html")
-
-	if err != nil {
+  tmpl, err := tmpl.ParseFS(assets.PublicFS, "public/index.html")
+	
+  if err != nil {
 		http.Error(w, "Error loading template", http.StatusInternalServerError)
 		log.Printf("error loading template\n")
 
 		return
 	}
 
-	err = t.Execute(w, config.GetConfig())
+	err = tmpl.Execute(w, config.GetConfig())
 
 	if err != nil {
 		http.Error(w, "Error rendering template", http.StatusInternalServerError)
