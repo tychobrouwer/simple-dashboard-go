@@ -2,6 +2,8 @@
 
 The Homelab Dashboard is a customizable web-based dashboard designed for managing and monitoring your homelab services. It provides a clean and organized interface to access various services, with support for status icons and custom icons (SVGs, dashboard icons from [Homarr Labs](https://github.com/homarr-labs/dashboard-icons), URLs, and Font Awesome icons). The dashboard is highly configurable, allowing you to tailor it to your specific needs.
 
+Inspired by [Dashy](https://dashy.to/)
+
 ## Features
 
 - Customizable Layout: Adjust the number of sections, section width, and padding to fit your preferences.
