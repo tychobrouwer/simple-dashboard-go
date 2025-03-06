@@ -55,12 +55,17 @@
       background-color: {{ .Style.CardHover }};
       color: {{ .Style.TextHover }};
     }
-    .link svg,
-    .link img {
+    .link svg {
       display: block;
       margin: 5px auto 0;
       width: 30px;
       height: 30px;
+    }
+    .link img {
+      display: block;
+      margin: 5px auto 0;
+      max-height: 30px;
+      max-width: 30px;
     }
     .link .fas,
     .link .fa {
