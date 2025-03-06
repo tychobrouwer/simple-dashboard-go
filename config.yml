@@ -13,7 +13,7 @@ style:
   cardHover: "#c6a0f6"
   text: "#cad3f5"
   textHover: "#24273a"
-  configaccent: "#c6a0f6"
+  accent: "#c6a0f6"
   statusOnline: "#a6da95"
   statusOffline: "#121212"
 
