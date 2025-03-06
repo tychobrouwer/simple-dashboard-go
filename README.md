@@ -21,7 +21,6 @@ Inspired by [Dashy](https://dashy.to/)
 1. Clone the repository:
 
 ```bash
-Copy
 git clone https://github.com/your-username/homelab-dashboard.git
 cd homelab-dashboard
 ```
@@ -29,7 +28,6 @@ cd homelab-dashboard
 2. Build the project:
 
 ```bash
-Copy
 go build -o homelab-dashboard
 ```
 
