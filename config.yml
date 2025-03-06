@@ -239,3 +239,45 @@ linkSections:
         url: https://dms.studentensportcentrumeindhoven.nl/members/profile/myprofile
         icon: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHRyQ6l5Qyo3NH8A8zPuWgW06SK4IO3MLwPA&s
 
+  - title: development
+    links:
+      - title: GitHub
+        url: https://github.com/TychoBrouwer?tab=repositories/
+        icon: hl-github-light
+
+      - title: Gitea
+        url: https://gitea.tbrouwer.com/
+        icon: hl-gitea
+        status: true
+
+      - title: Cloudflare
+        url: https://dash.cloudflare.com/
+        icon: hl-cloudflare
+
+      - title: Linode
+        url: https://cloud.linode.com/linodes
+        icon: hl-linode
+
+      - title: Namecheap
+        url: https://ap.www.namecheap.com
+        icon: https://www.namecheap.com/assets/img/nc-icon/favicon.ico
+
+      - title: ChatGPT
+        url: https://chat.openai.com
+        icon: hl-chatgpt
+
+      - title: Docker.io
+        url: https://hub.docker.com/repositories/tychobrouwer
+        icon: hl-docker
+
+      - title: npm
+        url: https://www.npmjs.com/~tbrouwer
+        icon: https://static-production.npmjs.com/b0f1a8318363185cc2ea6a40ac23eeb2.png
+
+      - title: Font Awesome
+        url: https://fontawesome.com/search
+        icon: hl-fontawesome
+
+      - title: Windows Blog
+        url: https://blogs.windows.com/windows-insider/
+        icon: hl-windows-10
