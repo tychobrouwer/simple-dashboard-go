@@ -145,7 +145,7 @@ linkSections:
 
       - title: iCloud
         url: https://www.icloud.com
-        icon: favicon
+        icon: hl-icloud
 
       - title: Reddit
         url: https://www.reddit.com/
@@ -183,7 +183,7 @@ linkSections:
 
       - title: Overleaf
         url: https://www.overleaf.com/project
-        icon: favicon
+        icon: hl-overleaf
 
       - title: Stirling PDF
         url: https://stirling.tbrouwer.com
@@ -217,7 +217,7 @@ linkSections:
 
       - title: Dropbox
         url: https://www.dropbox.com/home
-        icon: https://cfl.dropboxstatic.com/static/metaserver/static/images/favicon.ico
+        icon: hl-dropbox
 
       - title: Todoist
         url: https://app.todoist.com/app/inbox
@@ -235,11 +235,11 @@ linkSections:
         url: https://www.dropbox.com/scl/fi/411plz5boru5qd5ry5ebv/Member-Administration-2024-2025.xlsx
         icon: hl-google-forms
 
-      - title: SSC DMS
+      - title: SSCE DMS
         url: https://dms.studentensportcentrumeindhoven.nl/members/profile/myprofile
-        icon: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHRyQ6l5Qyo3NH8A8zPuWgW06SK4IO3MLwPA&s
+        icon: https://storage.googleapis.com/static.production.tue.delcom.nl/branding/5c98f4ee-c918-45b2-8981-16a1d4ef1c8c
 
-  - title: development
+  - title: Development
     links:
       - title: GitHub
         url: https://github.com/TychoBrouwer?tab=repositories/
@@ -260,7 +260,7 @@ linkSections:
 
       - title: Namecheap
         url: https://ap.www.namecheap.com
-        icon: https://www.namecheap.com/assets/img/nc-icon/favicon.ico
+        icon: hl-namecheap
 
       - title: ChatGPT
         url: https://chat.openai.com
@@ -281,3 +281,4 @@ linkSections:
       - title: Windows Blog
         url: https://blogs.windows.com/windows-insider/
         icon: hl-windows-10
+
