@@ -16,13 +16,16 @@ func main() {
 		os.Exit(1)
 	}
 
+  config.WatchConfig()
+
 	http.HandleFunc("/robots.txt", handlers.RobotsTxtHandler)
 	http.HandleFunc("/status", handlers.StatusHandler)
 	http.HandleFunc("/", handlers.IndexHandler)
 	err = http.ListenAndServe(":8080", nil)
 
 	if err != nil {
-		log.Printf("error starting listening on port :8080")
+		log.Println("error starting listening on port :8080")
 		os.Exit(1)
 	}
 }
+

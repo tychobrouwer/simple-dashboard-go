@@ -6,6 +6,8 @@ import (
 	"io"
 	"os"
 	"sync"
+  "utils"
+  "log"
 
 	"gopkg.in/yaml.v3"
 )
@@ -91,6 +93,33 @@ func LoadConfig() error {
 	wg.Wait()
 
 	return nil
+}
+
+func WatchConfig() {
+  configWatchChan := make(chan bool)
+  
+  go func(configWatchChan chan bool) {
+    defer func() {
+      configWatchChan <- true
+    }()
+
+    err := utils.WatchFile("config.yml")
+
+    if err != nil {
+      log.Printf("error watching config: %v\n", err)
+
+      return
+    }
+
+    fmt.Println("config file changed")
+    
+    err = LoadConfig()
+    if err != nil {
+      log.Printf("error updating config: %v\n", err)
+    }
+
+    WatchConfig()
+  }(configWatchChan)
 }
 
 func GetConfig() Config {

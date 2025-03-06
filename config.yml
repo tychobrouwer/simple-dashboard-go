@@ -18,7 +18,7 @@ style:
   statusOffline: "#121212"
 
 linkSections:
-  - title: main
+  - title: Home Lab
     links:
       - title: Proxmox
         url: https://pve.tbrouwer.com
@@ -105,7 +105,7 @@ linkSections:
         icon: hl-asus-router
         status: true
 
-  - title: secondary
+  - title: Personal
     links:
       - title: Google Calendar
         url: https://calendar.google.com
@@ -162,3 +162,80 @@ linkSections:
       - title: PayPal
         url: https://www.paypal.com/myaccount/summary
         icon: hl-paypal
+
+  - title: School
+    links:
+      - title: Canvas
+        url: https://canvas.tue.nl/
+        icon: https://www.instructure.com/sites/default/files/image/2021-12/Canvas_logo_single_mark.png
+
+      - title: Office 365
+        url: https://www.office.com/?auth=2
+        icon: hl-office-365
+
+      - title: Osiris
+        url: https://tue.osiris-student.nl/#/home
+        icon: https://www.caci.nl/wp-content/uploads/2021/03/Osiris_Pyramid_v5.png
+
+      - title: Osiris PlanApp
+        url: https://tue.osiris-planapp.nl/#/
+        icon: https://www.caci.nl/wp-content/uploads/2021/03/Osiris_Pyramid_v5.png
+
+      - title: Overleaf
+        url: https://www.overleaf.com/project
+        icon: favicon
+
+      - title: Stirling PDF
+        url: https://stirling.tbrouwer.com
+        icon: hl-stirling-pdf
+        status: true
+
+      - title: MATLAB
+        url: https://matlab.tbrouwer.com
+        icon: https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/mathworks-logo-membrane.20250206052022769.svg
+        status: true
+
+      - title: DeepL
+        url: https://www.deepl.com/translator
+        icon: https://static.deepl.com/img/logo/DeepL_Logo_darkBlue_v2.svg
+
+      - title: TU/e Databases
+        url: https://library.tue.nl/AZDatabases/
+        icon: hl-bookstack
+
+      - title: ESBV Panache
+        url: https://esbvpanache.nl/
+        icon: https://esbvpanache.nl/wp-content/uploads/2015/05/254596_10151060894411945_2113449619_n.jpg
+
+      - title: Google Mail
+        url: https://mail.google.com/mail/
+        icon: hl-gmail
+
+      - title: Google Drive
+        url: https://drive.google.com/
+        icon: hl-google-drive
+
+      - title: Dropbox
+        url: https://www.dropbox.com/home
+        icon: https://cfl.dropboxstatic.com/static/metaserver/static/images/favicon.ico
+
+      - title: Todoist
+        url: https://app.todoist.com/app/inbox
+        icon: hl-todoist
+
+      - title: Google Contacts
+        url: https://contacts.google.com/
+        icon: hl-google-contacts
+
+      - title: Forms Responses
+        url: https://docs.google.com/spreadsheets/d/1GD3rJndGRMM8qIvlFPtQ1gCT1n-p7KTxS9YRP-vl-vs/edit
+        icon: hl-google-forms
+
+      - title: Member Admin
+        url: https://www.dropbox.com/scl/fi/411plz5boru5qd5ry5ebv/Member-Administration-2024-2025.xlsx
+        icon: hl-google-forms
+
+      - title: SSC DMS
+        url: https://dms.studentensportcentrumeindhoven.nl/members/profile/myprofile
+        icon: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHRyQ6l5Qyo3NH8A8zPuWgW06SK4IO3MLwPA&s
+

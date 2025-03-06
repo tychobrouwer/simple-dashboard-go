@@ -4,15 +4,17 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+  "encoding/base64"
 	"log"
 	"net/http"
-	"strings"
+	"net/url"
+  "strings"
 	"sync"
 	"utils"
 )
 
 type Icon struct {
-	Name string
+	Key  string
 	Url  string
 	Html string
 	Src  string
@@ -27,7 +29,18 @@ func getIconUrl(icon string, link string) (string, string) {
 	}
 
   if icon == "favicon" {
-    return "favicon", link + "/favicon.ico"
+    u, err := url.Parse(link)
+
+    if err != nil {
+      log.Printf("error parsing url for favicon: %v\n", err)
+      return "favicon", link + "/favicon.ico"
+    }
+
+    return "favicon", u.Scheme + "://" + u.Host + "/favicon.ico"
+  }
+
+  if strings.HasSuffix(icon, ".svg") {
+    return "svg", icon
   }
 
 	iconParts := strings.SplitN(icon, "-", 2)
@@ -51,14 +64,7 @@ func getIconUrl(icon string, link string) (string, string) {
 }
 
 func GetIconSrc(icon string, url string) (string, error) {
-  var iconSrc string
-  var err error
-
-  if icon == "favicon" {
-    iconSrc, _, err = getCachedIcon(url)
-  } else {
-    iconSrc, _, err = getCachedIcon(icon)
-  }
+  iconSrc, _, err := getCachedIcon(icon, url)
 
   if err == nil {
 		return iconSrc, nil
@@ -70,14 +76,7 @@ func GetIconSrc(icon string, url string) (string, error) {
 }
 
 func GetIconHtml(icon string, url string) (template.HTML, error) {
-  var iconHtml template.HTML
-  var err error
-
-  if icon == "favicon" {
-    _, iconHtml, err = getCachedIcon(url)
-  } else {
-    _, iconHtml, err = getCachedIcon(icon)
-  }
+  _, iconHtml, err := getCachedIcon(icon, url)
   
   if err == nil {
 		return iconHtml, nil
@@ -89,24 +88,21 @@ func GetIconHtml(icon string, url string) (template.HTML, error) {
 }
 
 func LoadIcon(icon string, url string) (string, template.HTML, error) {
-	iconSrc, iconHtml, err := getCachedIcon(icon)
+	iconSrc, iconHtml, err := getCachedIcon(icon, url)
 	if err == nil {
 		return iconSrc, iconHtml, nil
 	}
 
 	iconSrc, iconUrl := getIconUrl(icon, url)
-	log.Printf("loading icon from: %v", iconUrl)
 
-  if iconSrc == "favicon" {
-    log.Println("loading favicon icon")
+  if iconSrc == "favicon" || iconSrc == "url" {
+    imageHtml := "<img alt=\"" + icon + "\" src=\"" + iconUrl + "\">"
 
-    faviconHtml := "<img alt=\"" + icon + "\" src=\"" + iconUrl + "\">"
+    saveCachedIcon(icon, url, imageHtml, iconSrc)
 
-	  cacheMutex.Lock()
-	  iconCache = append(iconCache, Icon{Name: url, Html: faviconHtml, Src: iconSrc})
-	  cacheMutex.Unlock()
+	  log.Printf("loaded image tag: %v\n", iconUrl)
     
-    return "favicon", template.HTML(faviconHtml), nil
+    return iconSrc, template.HTML(imageHtml), nil
   }
 
 	res, err := http.Get(iconUrl)
@@ -130,21 +126,39 @@ func LoadIcon(icon string, url string) (string, template.HTML, error) {
 	}
 
 	prefix := strings.ReplaceAll(icon, "-", "_")
-	svgWithScopedStyles := utils.PrefixSVGClasses(string(body), prefix)
+	
+  svg := utils.PrefixSVGClasses(string(body), prefix)
+  svg = utils.AddSVGViewBox(svg)
 
-	cacheMutex.Lock()
-	iconCache = append(iconCache, Icon{Name: icon, Html: svgWithScopedStyles, Src: iconSrc})
-	cacheMutex.Unlock()
+	saveCachedIcon(icon, iconUrl, svg, iconSrc)
 
-	log.Printf("loaded icon from http request: %v\n", icon)
+	log.Printf("loaded svg icon: %v\n", icon)
 
-	return iconSrc, template.HTML(svgWithScopedStyles), nil
+	return iconSrc, template.HTML(svg), nil
 }
 
-func getCachedIcon(icon string) (string, template.HTML, error) {
+func saveCachedIcon(icon string, url string, html string, src string) {
+  if icon == "favicon" {
+    icon = url
+  }
+  
+  key := base64.StdEncoding.EncodeToString([]byte(icon))
+
+  cacheMutex.Lock()
+	iconCache = append(iconCache, Icon{Key: key, Html: html, Src: src})
+	cacheMutex.Unlock()
+}
+
+func getCachedIcon(icon string, url string) (string, template.HTML, error) {
+  if icon == "favicon" {
+    icon = url
+  }
+
+  key := base64.StdEncoding.EncodeToString([]byte(icon))
+
 	cacheMutex.Lock()
 	for _, cachedIcon := range iconCache {
-		if cachedIcon.Name == icon {
+		if cachedIcon.Key == key {
 			cacheMutex.Unlock()
 
 			return cachedIcon.Src, template.HTML(cachedIcon.Html), nil
